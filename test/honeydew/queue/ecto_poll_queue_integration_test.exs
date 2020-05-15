@@ -5,6 +5,7 @@ defmodule Honeydew.EctoPollQueueIntegrationTest do
   @examples_root "./examples/ecto_poll_queue"
 
   # Postgres
+  @tag :postgres
   test "ecto poll queue external project test: Postgres" do
     announce_test("Postgres (unprefixed)")
     :ok = mix("deps.get", "postgres", prefixed: false)
@@ -22,6 +23,14 @@ defmodule Honeydew.EctoPollQueueIntegrationTest do
     announce_test("CockroachDB (unprefixed)")
     :ok = mix("deps.get", "cockroach", prefixed: false)
     :ok = mix("test", "cockroach", prefixed: false)
+  end
+
+  # mysql
+  @tag :mysql
+  test "ecto poll queue external project test: mysql" do
+    announce_test("mysql (unprefixed)")
+    :ok = mix("deps.get", "mysql", prefixed: false)
+    :ok = mix("test", "mysql", prefixed: false)
   end
 
   defp announce_test(message) do

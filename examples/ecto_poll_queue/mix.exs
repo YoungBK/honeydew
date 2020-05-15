@@ -32,8 +32,17 @@ defmodule EctoPollQueueExample.MixProject do
   defp deps do
     [
       {:honeydew, path: "../.."},
-      {:dialyxir, "~> 0.5", only: [:cockroach, :postgres], runtime: false}
+      {:dialyxir, "~> 0.5", only: [:cockroach, :postgres, :mysql], runtime: false}
     ]
+  end
+
+  defp deps(:mysql) do
+    [
+      {:ecto, "~> 3.4"},
+      {:ecto_sql, "~> 3.4"},
+      {:jason, "~> 1.0"},
+      {:myxql, "~> 0.4.0"},
+   ] ++ deps()
   end
 
   defp deps(:cockroach) do
@@ -60,6 +69,7 @@ defmodule EctoPollQueueExample.MixProject do
 
   defp lockfile(:cockroach), do: "mix.cockroach.lock"
   defp lockfile(:postgres), do: "mix.postgres.lock"
+  defp lockfile(:mysql), do: "mix.mysql.lock"
   defp lockfile(_), do: "mix.lock"
 
 end
